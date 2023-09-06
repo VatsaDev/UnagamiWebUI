@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unagami Chat</title>
+    <!--<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">-->
+    <link rel="stylesheet" href="static/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='favicon.png') }}"
+      type="image/x-icon"
+    />
+  </head>
+  <body>
+    <div id="sidebar">
+      <h1 style="font-size: 4vw">Unagami</h1>
+      <br />
+      <p style="text-align: left; font-size: 2vw">
+        <a href="https://github.com/VatsaDev/UnagamiWebUI">Github</a
+        ><br /><br />
+        <a href="https://github.com/VatsaDev/UnagamiWebUI/issues">Issues</a
+        ><br /><br />
+        <a href="https://github.com/VatsaDev/UnagamiWebUI">Star us!</a>
+      </p>
+    </div>
+    <div id="chat">
+      <div id="messages">
+        <!--<img src="{{ url_for('static', filename='favicon.png') }}" alt="logo">--><img
+          src="static/favicon.png"
+          alt="logo"
+          style="width: 40%; margin-left: 30%; margin-top: 100px"
+        />
+      </div>
+      <div id="text">
+        <input
+          type="text"
+          id="text-value"
+          placeholder="Would you like to enter Prime Empire..."
+        />
+        <button
+          id="post"
+          onclick="enterInput(document.getElementById('text-value').value)"
+        >
+          post
+        </button>
+      </div>
+    </div>
+    <script>
+      let chatArray = [];
+
+      function enterInput(val) {
+        chatArray.push(val);
+        callBot();
+        updateContext();
+      }
+
+      function callBot() {
+        const url = "/respond?input='<human>hello<endOfText><bot>'";
+
+        fetch(url, {
+          method: "GET",
+        })
+          .then((response) => response.json())
+          .then((data) => console.log(data));
+      }
+
+      function updateContext() {
+        document.getElementById("messages").innerHTML = "";
+        loopThroughArray(chatArray);
+      }
+
+      function loopThroughArray(array) {
+        for (let i = 0; i < array.length; i++) {
+          let color = "#484848";
+          if (i % 2 !== 0) {
+            color = "#BE1313";
+          }
+          // Add a blue rectangle if the element value is even, and red if odd
+          document.getElementById(
+            "messages"
+          ).innerHTML += `<div style="background-color: ${color}; width: 60%; height: 40px; margin: 10px; padding: 10px; border-radius:10px;">${array[i]}</div>`;
+        }
+      }
+    </script>
+  </body>
+</html>
