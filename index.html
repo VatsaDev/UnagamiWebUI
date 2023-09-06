@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unagami Web UI</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
 </head>
@@ -12,7 +12,7 @@
     <img src="favicon.png" alt="logo" style="width: 100px; margin-left: 45%; padding-top: 10px;">
     <h1>UNAGAMI</h1>
     <div style="width: 60%; margin-left: 20%; margin-right: 20%;">
-        <a href="new.html"><div class="box">
+        <a href="{{ url_for('new') }}"><div class="box">
             Start a new chat
             <h2 style="font-size: 60px;"><i class="fa-solid fa-atom"></i></h2>
         </div></a>
