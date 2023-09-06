@@ -55,24 +55,31 @@
     </div>
     <script>
       let chatArray = [];
+      let context="<system>You are an AI assistant named UNAGAMI, designed to help users<endOfText>"
 
       function enterInput(val) {
+        context = context+'<human>'+val+'<endOfText><bot>';
         chatArray.push(val);
         callBot();
-        updateContext();
+        updateChatView();
       }
 
       function callBot() {
-        const url = "/respond?input='<human>hello<endOfText><bot>'";
+        const url = `/respond?input='${context}'`;
 
         fetch(url, {
           method: "GET",
         })
           .then((response) => response.text())
-          .then((data) => console.log(data));
+          .then((data) => updateContext(data));
       }
 
-      function updateContext() {
+      function updateContext(text){
+        context=context+text+'<endOfText><system>You are an AI assistant named UNAGAMI, designed to help users<endOfText>';
+        console.log(text);
+      }
+
+      function updateChatView() {
         document.getElementById("messages").innerHTML = "";
         loopThroughArray(chatArray);
       }
@@ -86,7 +93,7 @@
           // Add a blue rectangle if the element value is even, and red if odd
           document.getElementById(
             "messages"
-          ).innerHTML += `<div style="background-color: ${color}; width: 60%; height: 40px; margin: 10px; padding: 10px; border-radius:10px;">${array[i]}</div>`;
+          ).innerHTML += `<div style="background-color: ${color}; width: 60%; margin: 10px; padding: 10px; border-radius:10px;">${array[i]}</div>`;
         }
       }
     </script>
