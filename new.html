@@ -67,12 +67,17 @@
       function callBot() {
         console.log(context);
         const url = `/respond?input='${context}'`;
-                
+      
         fetch(url, {
           method: "GET",
         })
-          .then((response) => response.text())
-          .then((data) => updateContext(data));
+          .then(async (response) => {
+            const data = await response.text();
+            updateContext(data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
 
       function updateContext(text){
