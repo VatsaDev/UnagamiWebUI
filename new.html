@@ -65,8 +65,9 @@
       }
 
       function callBot() {
+        console.log(context);
         const url = `/respond?input='${context}'`;
-
+                
         fetch(url, {
           method: "GET",
         })
@@ -76,7 +77,6 @@
 
       function updateContext(text){
         context=context+text+'<endOfText><system>You are an AI assistant named UNAGAMI, designed to help users<endOfText>';
-        console.log(context);
         console.log(text);
       }
 
