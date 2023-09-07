@@ -70,6 +70,9 @@
       
         fetch(url, {
           method: "GET",
+          headers: {
+            "ngrok-skip-browser-warning": "69420",
+          }
         })
           .then(async (response) => {
             const data = await response.text();
